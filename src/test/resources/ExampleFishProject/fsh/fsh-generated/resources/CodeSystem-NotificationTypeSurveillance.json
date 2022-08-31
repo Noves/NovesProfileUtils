@@ -1,0 +1,22 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "active",
+  "content": "complete",
+  "name": "NotificationTypeSurveillance",
+  "id": "NotificationTypeSurveillance",
+  "title": "Typ der Surveillancemeldung",
+  "description": "Das CodeSystem definiert die verschiedenen Typen von Surveillancemeldungen.",
+  "version": "0.1.0",
+  "url": "https://are.surveillance.noves.de/fhir/CodeSystem/NotificationTypeSurveillance",
+  "concept": [
+    {
+      "code": "ARE",
+      "display": "ARE-Surveillance"
+    },
+    {
+      "code": "SARI",
+      "display": "SARI-Surveillance"
+    }
+  ],
+  "count": 2
+}

@@ -1,0 +1,58 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "SurveillanceInformationARE",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-category",
+      "valueString": "Clinical.Diagnostics"
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-security-category",
+      "valueCode": "patient"
+    }
+  ],
+  "url": "https://are.surveillance.noves.de/fhir/StructureDefinition/SurveillanceInformationARE",
+  "version": "0.1.0",
+  "name": "SurveillanceInformationARE",
+  "title": "SurveillanceInformationARE",
+  "status": "active",
+  "date": "2022-08-24",
+  "description": "Antwort auf den Fragebogen zu Erkrankungsdaten und generellen Anamnese im Kontext der ARE-Surveillance.",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "workflow",
+      "uri": "http://hl7.org/fhir/workflow",
+      "name": "Workflow Pattern"
+    },
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    },
+    {
+      "identity": "w5",
+      "uri": "http://hl7.org/fhir/fivews",
+      "name": "FiveWs Pattern Mapping"
+    }
+  ],
+  "kind": "resource",
+  "abstract": false,
+  "type": "QuestionnaireResponse",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "QuestionnaireResponse.questionnaire",
+        "path": "QuestionnaireResponse.questionnaire",
+        "patternCanonical": "https://are.surveillance.rki.de/fhir/Questionnaire/SurveillanceQuestionsARE"
+      },
+      {
+        "id": "QuestionnaireResponse.item",
+        "path": "QuestionnaireResponse.item",
+        "min": 1
+      }
+    ]
+  }
+}

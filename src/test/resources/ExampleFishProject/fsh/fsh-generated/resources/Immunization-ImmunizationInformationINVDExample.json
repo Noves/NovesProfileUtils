@@ -1,0 +1,22 @@
+{
+  "resourceType": "Immunization",
+  "id": "ImmunizationInformationINVDExample",
+  "meta": {
+    "profile": [
+      "https://are.surveillance.noves.de/fhir/StructureDefinition/ImmunizationInformationINVD"
+    ]
+  },
+  "status": "completed",
+  "vaccineCode": {
+    "coding": [
+      {
+        "code": "otherVaccine",
+        "system": "https://demis.rki.de/fhir/CodeSystem/vaccine"
+      }
+    ]
+  },
+  "patient": {
+    "reference": "NotifiedPerson"
+  },
+  "occurrenceDateTime": "2022-01-22"
+}

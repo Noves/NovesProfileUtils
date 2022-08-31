@@ -1,0 +1,15 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "id": "QuestionnaireResponse-SurveillanceInformationAREExample",
+  "meta": {
+    "profile": [
+      "https://are.surveillance.noves.de/fhir/StructureDefinition/SurveillanceInformationARE"
+    ]
+  },
+  "status": "completed",
+  "item": [
+    {
+      "linkId": "bla"
+    }
+  ]
+}

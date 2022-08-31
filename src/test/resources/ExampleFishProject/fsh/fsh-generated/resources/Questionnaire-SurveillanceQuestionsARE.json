@@ -1,0 +1,408 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "SurveillanceQuestionsARE",
+  "version": "0.1.0",
+  "date": "2022-08-23",
+  "url": "https://are.surveillance.rki.de/fhir/Questionnaire/SurveillanceQuestionsARE",
+  "name": "SurveillanceQuestionsARE",
+  "title": "Erkrankungsdaten und generelle Anamnese im Rahmen der ARE-Surveillance.",
+  "status": "draft",
+  "description": "Fragen, die meldetatbestandsübergreifend von Interesse sind, werden in diesem allgemeinen Fragebogen abgebildet. Dieser Fragebogen ist für sämtliche Meldungen gemäß §6 Absatz 1, 2 IfSG auszufüllen und somit als spezifische QuestionnaireResponse integraler Bestandteil einer jeden Meldung.",
+  "item": [
+    {
+      "linkId": "beginIllness",
+      "text": "Beginn der Erkankung",
+      "type": "date",
+      "required": false
+    },
+    {
+      "linkId": "acuteBegin",
+      "text": "Akuter Beginn",
+      "type": "choice",
+      "required": false,
+      "answerValueSet": "https://demis.rki.de/fhir/ValueSet/yesOrNoOrNoInformation",
+      "initial": [
+        {
+          "valueCoding": {
+            "code": "NASK",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+            "display": "not asked"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "hasFever",
+      "text": "Fieber / Schüttelfrost",
+      "type": "choice",
+      "required": false,
+      "answerValueSet": "https://demis.rki.de/fhir/ValueSet/yesOrNoOrNoInformation",
+      "initial": [
+        {
+          "valueCoding": {
+            "code": "NASK",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+            "display": "not asked"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "temperature",
+          "text": "Höste in der Praxis oder zuhause gemessene Temperatur",
+          "type": "decimal",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "hasFever",
+              "operator": "=",
+              "answerCoding": {
+                "code": "yes",
+                "system": "https://demis.rki.de/fhir/CodeSystem/yesOrNoAnswer"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "soreThroat",
+      "text": "Halsschmerzen",
+      "type": "choice",
+      "required": false,
+      "answerValueSet": "https://demis.rki.de/fhir/ValueSet/yesOrNoOrNoInformation",
+      "initial": [
+        {
+          "valueCoding": {
+            "code": "NASK",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+            "display": "not asked"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "musclePainOrHeadache",
+      "text": "Muskel- oder Kopfschmerzen",
+      "type": "choice",
+      "required": false,
+      "answerValueSet": "https://demis.rki.de/fhir/ValueSet/yesOrNoOrNoInformation",
+      "initial": [
+        {
+          "valueCoding": {
+            "code": "NASK",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+            "display": "not asked"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "headCold",
+      "text": "Schnupfen",
+      "type": "choice",
+      "required": false,
+      "answerValueSet": "https://demis.rki.de/fhir/ValueSet/yesOrNoOrNoInformation",
+      "initial": [
+        {
+          "valueCoding": {
+            "code": "NASK",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+            "display": "not asked"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "pneumonia",
+      "text": "Pneumonie",
+      "type": "choice",
+      "required": false,
+      "answerValueSet": "https://demis.rki.de/fhir/ValueSet/yesOrNoOrNoInformation",
+      "initial": [
+        {
+          "valueCoding": {
+            "code": "NASK",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+            "display": "not asked"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "hasChronicleDisease",
+      "text": "Liegt eine chronische Grunderkrankung vor?",
+      "type": "choice",
+      "required": false,
+      "answerValueSet": "https://demis.rki.de/fhir/ValueSet/yesOrNoOrNoInformation",
+      "initial": [
+        {
+          "valueCoding": {
+            "code": "NASK",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+            "display": "not asked"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "affectedOrgans",
+          "text": "Welche Organsysteme sind betroffen?",
+          "type": "choice",
+          "answerValueSet": "https://are.surveillance.noves.de/fhir/ValueSet/OrgansAffectedByChronicleDisease",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "hasChronicleDisease",
+              "operator": "=",
+              "answerCoding": {
+                "code": "yes",
+                "system": "https://demis.rki.de/fhir/CodeSystem/yesOrNoAnswer"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "hasHospitalized",
+      "text": "Krankenhausaufenthalt(e) im letzten Jahr aufgrund einer der genannten Grunderkrankung(en)?",
+      "type": "choice",
+      "required": false,
+      "answerValueSet": "https://demis.rki.de/fhir/ValueSet/yesOrNoOrNoInformation",
+      "initial": [
+        {
+          "valueCoding": {
+            "code": "NASK",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+            "display": "not asked"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "numberOfHospitalizations",
+          "text": "Anzahl an Krankenhausaufenthalten",
+          "type": "integer",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "hasHospitalized",
+              "operator": "=",
+              "answerCoding": {
+                "code": "yes",
+                "system": "https://demis.rki.de/fhir/CodeSystem/yesOrNoAnswer"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "isPregnant",
+      "text": "Schwangerschaft?",
+      "type": "choice",
+      "required": false,
+      "answerValueSet": "https://demis.rki.de/fhir/ValueSet/yesOrNoOrNoInformation",
+      "initial": [
+        {
+          "valueCoding": {
+            "code": "NASK",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+            "display": "not asked"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "hasInfluenzaTherapy",
+      "text": "Wurde eine antivirale Influenza-Therapie eingeleitet?",
+      "type": "choice",
+      "required": false,
+      "answerValueSet": "https://demis.rki.de/fhir/ValueSet/yesOrNoOrNoInformation",
+      "initial": [
+        {
+          "valueCoding": {
+            "code": "NASK",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+            "display": "not asked"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "influenzaTherapyGroup",
+          "type": "group",
+          "enableWhen": [
+            {
+              "question": "hasInfluenzaTherapy",
+              "operator": "=",
+              "answerCoding": {
+                "code": "yes",
+                "system": "https://demis.rki.de/fhir/CodeSystem/yesOrNoAnswer"
+              }
+            }
+          ],
+          "required": false,
+          "repeats": true,
+          "item": [
+            {
+              "linkId": "beginInfluenzaTherapy",
+              "text": "Beginn der antiviralen Influenza-Therapie",
+              "type": "date",
+              "required": false,
+              "enableWhen": [
+                {
+                  "question": "hasInfluenzaTherapy",
+                  "operator": "=",
+                  "answerCoding": {
+                    "code": "yes",
+                    "system": "https://demis.rki.de/fhir/CodeSystem/yesOrNoAnswer"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "drugs",
+              "text": "Medikament",
+              "type": "choice",
+              "answerValueSet": "https://are.surveillance.noves.de/fhir/ValueSet/InfluenzaDrugs",
+              "required": false,
+              "enableWhen": [
+                {
+                  "question": "hasInfluenzaTherapy",
+                  "operator": "=",
+                  "answerCoding": {
+                    "code": "yes",
+                    "system": "https://demis.rki.de/fhir/CodeSystem/yesOrNoAnswer"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "influenzaImmunizationThisSeason",
+      "text": "Influenza-Impfung in dieser Saison",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://demis.rki.de/fhir/ValueSet/yesOrNoOrNoInformation",
+      "initial": [
+        {
+          "valueCoding": {
+            "code": "NASK",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+            "display": "not asked"
+          }
+        }
+      ],
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-referenceResource",
+              "valueCode": "ImmunizationInformationINVD"
+            }
+          ],
+          "linkId": "refInfluenzaImmunization1",
+          "text": "Influenza-Immunisierung",
+          "type": "reference",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "influenzaImmunizationThisSeason",
+              "operator": "=",
+              "answerCoding": {
+                "code": "yes",
+                "system": "https://demis.rki.de/fhir/CodeSystem/yesOrNoAnswer"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "influenzaImmunizationLastSeason",
+      "text": "Influenza-Impfung in vergangener Saison",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://demis.rki.de/fhir/ValueSet/yesOrNoOrNoInformation",
+      "initial": [
+        {
+          "valueCoding": {
+            "code": "NASK",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+            "display": "not asked"
+          }
+        }
+      ],
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-referenceResource",
+              "valueCode": "ImmunizationInformationINVD"
+            }
+          ],
+          "linkId": "refInfluenzaImmunization2",
+          "text": "Influenza-Immunisierung",
+          "type": "reference",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "influenzaImmunizationLastSeason",
+              "operator": "=",
+              "answerCoding": {
+                "code": "yes",
+                "system": "https://demis.rki.de/fhir/CodeSystem/yesOrNoAnswer"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "covidImmunization",
+      "text": "COVID-19-Impfung",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://demis.rki.de/fhir/ValueSet/yesOrNoOrNoInformation",
+      "initial": [
+        {
+          "valueCoding": {
+            "code": "NASK",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+            "display": "not asked"
+          }
+        }
+      ],
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-referenceResource",
+              "valueCode": "ImmunizationInformationCVDD"
+            }
+          ],
+          "linkId": "refCovidImmunization",
+          "text": "Influenza-Immunisierung",
+          "type": "reference",
+          "required": false,
+          "repeats": true,
+          "enableWhen": [
+            {
+              "question": "covidImmunization",
+              "operator": "=",
+              "answerCoding": {
+                "code": "yes",
+                "system": "https://demis.rki.de/fhir/CodeSystem/yesOrNoAnswer"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

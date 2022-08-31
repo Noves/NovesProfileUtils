@@ -1,0 +1,23 @@
+{
+  "resourceType": "ValueSet",
+  "status": "active",
+  "name": "MaterialSurveillanceARE",
+  "id": "MaterialSurveillanceARE",
+  "title": "MaterialSurveillanceARE",
+  "description": "Das ValueSet enthält die Codes der für Proben in der ARE-Surveillance angewendeten Materialien.",
+  "version": "0.1.0",
+  "url": "https://are.surveillance.noves.de/fhir/ValueSet/MaterialSurveillanceARE",
+  "compose": {
+    "include": [
+      {
+        "system": "http://snomed.info/sct",
+        "concept": [
+          {
+            "code": "258529004",
+            "display": "Throat swab (specimen)"
+          }
+        ]
+      }
+    ]
+  }
+}

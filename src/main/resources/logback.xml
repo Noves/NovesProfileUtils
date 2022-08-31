@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE configuration><!-- This line works as an extremely basic DTD -->
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} [%thread] %-5level %logger{36} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} [%thread] %-5level %logger{36} [%file:%line] %msg%n</pattern>
+        </encoder>
+        <target>System.err</target>
+    </appender>
+
+    <!-- Ignore any log entries below level WARN of the following logger, since these are way too verbose. -->
+    <logger name="ca.uhn.fhir" level="WARN" additivity="false">
+        <appender-ref ref="STDERR"/>
+    </logger>
+
+    <!-- set this to OFF and no more logging -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

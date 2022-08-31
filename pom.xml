@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.noves</groupId>
-    <artifactId>java-example-project</artifactId>
+    <artifactId>profile-util</artifactId>
     <version>0.0.1</version>
 
-    <name>Java example project</name>
-    <description>This project is a template for further Java projects.</description>
+    <name>Profile Util</name>
+    <description>This project contains different utility functions for processing FHIR profiles.</description>
 
     <licenses>
         <license>
@@ -31,6 +31,7 @@
         <dependency.check.maven.version>7.1.0</dependency.check.maven.version>
         <maven.surefire.report.version>3.0.0-M6</maven.surefire.report.version>
         <maven.surefire.report.plugin.version>3.0.0-M6</maven.surefire.report.plugin.version>
+        <hapi.fhir.version>6.0.0</hapi.fhir.version>
     </properties>
 
     <dependencies>
@@ -73,6 +74,18 @@
             <artifactId>jmockit</artifactId>
             <version>${jmockit.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Java implementation of the FHIR spec -->
+        <dependency>
+            <groupId>ca.uhn.hapi.fhir</groupId>
+            <artifactId>hapi-fhir-base</artifactId>
+            <version>${hapi.fhir.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ca.uhn.hapi.fhir</groupId>
+            <artifactId>hapi-fhir-structures-r4</artifactId>
+            <version>${hapi.fhir.version}</version>
         </dependency>
     </dependencies>
 
@@ -179,7 +192,7 @@
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <manifestEntries>
-                                        <Main-Class>io.noves.project.template.java.ExampleProject</Main-Class>
+                                        <Main-Class>io.noves.profiles.util.FshToDemisConversion</Main-Class>
                                         <Built-By>Noves GmbH</Built-By>
                                     </manifestEntries>
                                 </transformer>
@@ -214,7 +227,7 @@
                         <properties>
                             <license.owner>Noves GmbH</license.owner>
                             <license.years>2022</license.years>
-                            <license.projectName>policy-validator</license.projectName>
+                            <license.projectName>profile-util</license.projectName>
                         </properties>
                         <includes>
                             <include>src/main/java/**/*.java</include>

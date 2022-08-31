@@ -1,0 +1,110 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "ImmunizationInformationINVD",
+  "url": "https://are.surveillance.noves.de/fhir/StructureDefinition/ImmunizationInformationINVD",
+  "version": "0.1.0",
+  "name": "ImmunizationInformationINVD",
+  "title": "Influenza-Impfung",
+  "status": "active",
+  "date": "2022-08-24",
+  "description": "Die Influenza-Impfung pezifiziert die Angaben zum Impfstoff hinsichtlich Influenza.",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "workflow",
+      "uri": "http://hl7.org/fhir/workflow",
+      "name": "Workflow Pattern"
+    },
+    {
+      "identity": "v2",
+      "uri": "http://hl7.org/v2",
+      "name": "HL7 v2 Mapping"
+    },
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    },
+    {
+      "identity": "w5",
+      "uri": "http://hl7.org/fhir/fivews",
+      "name": "FiveWs Pattern Mapping"
+    },
+    {
+      "identity": "cda",
+      "uri": "http://hl7.org/v3/cda",
+      "name": "CDA (R2)"
+    }
+  ],
+  "kind": "resource",
+  "abstract": false,
+  "type": "Immunization",
+  "baseDefinition": "https://demis.rki.de/fhir/StructureDefinition/ImmunizationInformation",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Immunization.identifier",
+        "path": "Immunization.identifier",
+        "max": "0"
+      },
+      {
+        "id": "Immunization.vaccineCode",
+        "path": "Immunization.vaccineCode",
+        "short": "Verabreichter Influenza-Impfstoff.",
+        "definition": "Verabreichter Influenza-Impfstoff.",
+        "mustSupport": true,
+        "binding": {
+          "strength": "required",
+          "valueSet": "https://are.surveillance.noves.de/fhir/ValueSet/VaccineINVD"
+        }
+      },
+      {
+        "id": "Immunization.occurrenceDateTime",
+        "path": "Immunization.occurrenceDateTime",
+        "short": "Das Datum an dem der Impfstoff verabreicht wurde",
+        "definition": "Das Datum an dem der Impfstoff verabreicht wurde. Falls unbekannt, wird dieses Feld leer gelassen.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "dateTime"
+          }
+        ]
+      },
+      {
+        "id": "Immunization.occurrenceString",
+        "path": "Immunization.occurrenceString",
+        "short": "Gibt an, dass kein Datum vorhanden ist.",
+        "definition": "Wird als Ausweichwert genommen, wenn kein Datum bekannt ist oder angegeben werden kann. Der String muss dem Wert 'none' entsprechen.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "string"
+          }
+        ]
+      },
+      {
+        "id": "Immunization.lotNumber",
+        "path": "Immunization.lotNumber",
+        "max": "0"
+      },
+      {
+        "id": "Immunization.performer",
+        "path": "Immunization.performer",
+        "max": "0"
+      },
+      {
+        "id": "Immunization.note",
+        "path": "Immunization.note",
+        "max": "0"
+      },
+      {
+        "id": "Immunization.reasonCode",
+        "path": "Immunization.reasonCode",
+        "max": "0"
+      }
+    ]
+  }
+}

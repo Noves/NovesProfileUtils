@@ -1,0 +1,31 @@
+{
+  "resourceType": "Practitioner",
+  "id": "AREParticipantExample",
+  "meta": {
+    "profile": [
+      "https://are.surveillance.noves.de/fhir/StructureDefinition/AREParticipant"
+    ]
+  },
+  "extension": [
+    {
+      "url": "https://are.surveillance.noves.de/fhir/StructureDefinition/PracticeAbbreviation",
+      "valueString": "Reiche/Krause/Rollet"
+    }
+  ],
+  "identifier": [
+    {
+      "system": "https://are.surveillance.noves.de/fhir/agiReference",
+      "value": "1234"
+    }
+  ],
+  "address": [
+    {
+      "country": "20422",
+      "city": "Scharzfeld",
+      "line": [
+        "Bergstraße 63"
+      ],
+      "postalCode": "37512"
+    }
+  ]
+}
