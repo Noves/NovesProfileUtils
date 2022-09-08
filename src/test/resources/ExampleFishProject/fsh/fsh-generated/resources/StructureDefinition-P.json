@@ -1,0 +1,16 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "P",
+  "url": "https://noves.io/fhir/StructureDefinition/P",
+  "version": "0.1.0",
+  "name": "P",
+  "title": "P",
+  "status": "active",
+  "date": "2022-08-24",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Practitioner",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Practitioner",
+  "derivation": "constraint"
+}

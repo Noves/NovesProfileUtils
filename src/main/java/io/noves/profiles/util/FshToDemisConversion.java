@@ -1,82 +1,78 @@
 package io.noves.profiles.util;
 
 import ca.uhn.fhir.context.FhirContext;
-import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.r4.model.StructureDefinition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.lang.invoke.MethodHandles;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+
 
 /**
  * Entry point of the application. The annotation {@code @Slfj} is a feature from lombok and creates
  * automatically a logger (can be used as variable "log").
  */
-@Slf4j
 public class FshToDemisConversion {
 
-    public void convert(String projectId, Path fshBasis) throws IOException {
-        var resourceDir = fshBasis.resolve("fsh/fsh-generated/resources");
-        var basePath = Paths.get("./" + projectId);
+    private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private static final List<String> STRUCTURE_DEFINITION_RESOURCES = List.of("Bundle", "Composition", "Practitioner",
+            "Patient", "Organization", "Extension", "QuestionnaireResponse", "Specimen");
 
-        // Remove existing structure
-        remove(basePath);
+    /**
+     * Copies the resources from a fsh-project into a target directory.
+     * ATTENTION! The content of the target repository is deleted completely!
+     * @param pathFshProject A path to the root directory of a FHIR Shorthand project ('./fsh').
+     * @param targetDirectory The ID of the new project (e.g. 'de.basis.r4'). Is used to create a new directory
+     * @throws IOException May fail during one of the many IO operations (create/copy directories & files).
+     */
+    public void convert(Path pathFshProject, Path targetDirectory) throws IOException {
 
-        // Create new Directories
-        var base = Files.createDirectory(basePath);
-        var examples = Files.createDirectory(basePath.resolve("ExampleResources"));
-        var ig = Files.createDirectory(basePath.resolve("ImplementationGuideSupportingResources"));
+        validateExistence(pathFshProject, "The provided fsh-directory does not exist: " + pathFshProject);
 
-        var meta = Files.createDirectory(basePath.resolve("MetadataResources"));
+        var resourceDir = pathFshProject.resolve("fsh-generated/resources");
+        validateExistence(resourceDir, "Expecting the directory 'fsh-generated/resources' to exist");
 
-        var cs = Files.createDirectory(meta.resolve("CodeSystem"));
-        var vs = Files.createDirectory(meta.resolve("ValueSet"));
-        var qs = Files.createDirectory(meta.resolve("Questionnaire"));
+        // Remove existing files
+        remove(targetDirectory);
 
-        var sd = Files.createDirectory(meta.resolve("StructureDefinition"));
+        var meta = targetDirectory.resolve("MetadataResources");
 
-        var bundle = Files.createDirectory(sd.resolve("Bundle"));
-        var composition = Files.createDirectory(sd.resolve("Composition"));
-        var practitioner = Files.createDirectory(sd.resolve("Practitioner"));
-        var immunization = Files.createDirectory(sd.resolve("Immunization"));
-        var extension = Files.createDirectory(sd.resolve("Extension"));
-        var questionnaireResponse = Files.createDirectory(sd.resolve("QuestionnaireResponse"));
-        var specimen = Files.createDirectory(sd.resolve("specimen"));
+        // Copy non StructureDefinition resources
+        log.info("Copy terminology resources");
+        copyResources(meta.resolve("CodeSystem"), e -> e.getFileName().toString().startsWith("ValueSet"), resourceDir);
+        copyResources(meta.resolve("ValueSet"), e -> e.getFileName().toString().startsWith("CodeSystem"), resourceDir);
+        copyResources(meta.resolve("NamingSystem"), e -> e.getFileName().toString().startsWith("NamingSystem"), resourceDir);
 
-        // Copy resources
-        copyResources(examples, e -> e.getFileName().toString().endsWith("Example.json"), resourceDir);
-        copyResources(vs, e -> e.getFileName().toString().startsWith("ValueSet"), resourceDir);
-        copyResources(cs, e -> e.getFileName().toString().startsWith("CodeSystem"), resourceDir);
-        copyResources(qs, e -> e.getFileName().toString().startsWith("Questionnaire"), resourceDir);
+        log.info("Copy Questionnaires");
+        copyResources(meta.resolve("Questionnaire"), e -> e.getFileName().toString().startsWith("Questionnaire"), resourceDir);
 
-        copyResources(bundle, "Bundle", resourceDir);
-        copyResources(composition, "Composition", resourceDir);
-        copyResources(practitioner, "Practitioner", resourceDir);
-        copyResources(immunization, "Immunization", resourceDir);
-        copyResources(extension, "Extension", resourceDir);
-        copyResources(questionnaireResponse, "QuestionnaireResponse", resourceDir);
-        copyResources(specimen, "Specimen", resourceDir);
+        // Copy StructureDefinition resources
+        var sd = meta.resolve("StructureDefinition");
+        log.info("Copy StructureDefinitions");
+        for (var resource : STRUCTURE_DEFINITION_RESOURCES) {
+            copyResources(sd.resolve(resource), e -> resourceOfType(e, resource), resourceDir);
+        }
+
+        // Copy example resources
+        log.info("Copy example files");
+        copyResources(targetDirectory.resolve("ExampleResources"), e -> e.getFileName().toString().endsWith("Example.json"), resourceDir);
+
+        log.info("Finished copying resources!");
     }
 
-    private void copyResources(Path target, String type, Path fshBasis) throws IOException {
-        try (Stream<Path> walk = Files.walk(fshBasis)) {
-            walk.filter(e -> resourceOfType(e, type))
-                    .forEach(
-                            e -> {
-                                try {
-                                    Files.copy(e, target.resolve(e.getFileName()));
-                                } catch (IOException ex) {
-                                    throw new RuntimeException("Failed for type " + type, ex);
-                                }
-                            }
-                    );
+    private void validateExistence(Path fshBasis, String s) throws NoSuchFileException {
+        if (!fshBasis.toFile().exists()) {
+            throw new NoSuchFileException(s);
         }
     }
-
 
     private boolean resourceOfType(Path resource, String type) {
         if (resource.toFile().isDirectory()) {
@@ -85,47 +81,45 @@ public class FshToDemisConversion {
         try {
             var parser = FhirContext.forR4().newJsonParser();
             var fhirResource = parser.parseResource(new FileInputStream(resource.toFile()));
-            if (fhirResource instanceof StructureDefinition &&
-                    ((StructureDefinition) fhirResource).getType().equals(type)) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Failed reading " + resource, e);
+            return fhirResource instanceof StructureDefinition structureDefinition &&
+                    structureDefinition.getType().equals(type);
+        } catch (FileNotFoundException e) {
+            throw new UncheckedIOException("Failed reading " + resource, e);
         }
     }
 
-    private void copyResources(Path target, Predicate<Path> filtering, Path fshBasis) throws IOException {
-        try (Stream<Path> walk = Files.walk(fshBasis)) {
+    private void copyResources(Path target, Predicate<Path> filtering, Path resourceDir) throws IOException {
+        try (Stream<Path> walk = Files.walk(resourceDir)) {
             walk.filter(filtering)
                     .forEach(e -> {
+                        createDir(target);
                         try {
                             Files.copy(e, target.resolve(e.getFileName()));
                         } catch (IOException ex) {
-                            throw new RuntimeException(ex);
+                            throw new UncheckedIOException(ex);
                         }
                     });
         }
     }
 
+    private void createDir(Path target)  {
+        if (!target.toFile().exists()) {
+            try {
+                Files.createDirectories(target);
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        }
+    }
+
     private void remove(Path path) throws IOException {
         if (path.toFile().exists()) {
+            log.info("Remove directory {} and any nested files.", path);
             try (Stream<Path> walk = Files.walk(path)) {
                 walk.sorted(Comparator.reverseOrder())
                         .map(Path::toFile)
                         .forEach(File::delete);
             }
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
-        if (args.length == 0) {
-            System.out.println("Please provide the ID of the project!");
-        }
-        else {
-            var fshBasis = args.length > 1 ? args[1] : "./";
-            new FshToDemisConversion().convert(args[0], Paths.get(fshBasis));
         }
     }
 

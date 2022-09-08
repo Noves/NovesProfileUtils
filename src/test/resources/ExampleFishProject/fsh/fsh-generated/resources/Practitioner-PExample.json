@@ -1,0 +1,18 @@
+{
+  "resourceType": "Practitioner",
+  "id": "P",
+  "meta": {
+    "profile": [
+      "https://noves.io/fhir/StructureDefinition/P"
+    ]
+  },
+  "address": [
+    {
+      "city": "Scharzfeld",
+      "line": [
+        "Schöne Straße 11"
+      ],
+      "postalCode": "37512"
+    }
+  ]
+}

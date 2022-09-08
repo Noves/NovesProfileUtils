@@ -1,98 +1,35 @@
-# Java Maven Project Template
+# ProfileUtils
 
-This is a Java example project that can be used as a template for other Java projects. However, keep in
-mind that you have to customize variables in this project (package names, project name, ...).
+| :exclamation: Attention                 |
+|-----------------------------------------|
 
-## Project setup
+This project is only part of a proof of concept and not production ready! It is not tested thoroughly in any way and
+vital parts of functionality may be missing. Please use upon own responsibility.
 
-### Dependencies
+## Description
 
-Necessary are:
+Currently, the project only provides the utility to map FHIR resource files packed together in one directory to the
+profile structure used by [DEMIS](https://www.rki.de/DE/Content/Infekt/IfSG/DEMIS/DEMIS_inhalt.html) for FHIR resources.
 
-* Java development kit (JDK) > version 11
-* Maven > version 3.5.0
+## Dependencies
 
-Check in confluence the general programming instructions or the project specific pages in order to specify
-which exact versions should be used.
+- Java Development Kit (recommended version 17)
+- Maven (recommended version 3.8.6)
 
-### Building and testing
+## Usage
 
-The project can be build without running any test with the following command. You can find the created
-Jar under `./target` in the root directory:
+You have to compile the project with Maven:
 
-```bash
-mvn clean package -DskipTests
+```
+mvn clean package
 ```
 
-You may run the unit tests with:
+Then you can run the compiled Jar (that one ending on '-exe.jar'). You have to provide two paths:
 
-```bash
-mvn test
+```
+java -jar ./target/profile-util-0.0.1-exe.jar --inputDirectory ./fsh --outputDirectory ./io.noves.example
 ```
 
-You may run integration tests and checks for duplicated classes on the classpath via:
+## Contribution & Contact
 
-```bash
-mvn verify
-```
-
-## Developer tools
-
-The following functionality is realized via Maven plugins. Take a look at the pom.xml for further information
-and visit the corresponding [Maven plugin websites](https://maven.apache.org/plugins/) or the developer
-websites at Github.
-
-### Dependency check
-
-The dependencies can be checked for common vulnerabilities and exposures (CVE). This process takes a while and is
-therefore not part of the normal Maven building cycle. You can execute it with the following command:
-
-```bash
-mvn -P dependency-check
-```
-
-### NOTICE file
-
-The notice file under src/main/resources lists all dependencies of the project including their licenses.
-
-You may test, if the NOTICE file is up-to-date by executing the following command:
-
-```bash
-mvn notice:check
-```
-
-You can update the NOTICE file with the following command:
-
-```bash
-mvn notice:generate
-```
-
-### License headers
-
-You may add license headers with the license-maven-plugin via:
-
-```bash
-mvn license:format
-```
-
-You can also remove them with the following command:
-
-```bash
-mvn license:remove
-```
-
-## Contribution guidelines ###
-
-// TODO Add stuff
-
-* Writing tests
-* Code review
-* Other guidelines
-
-## License ###
-
-// TODO Add license info, if necessary or remove
-
-## Contact ###
-
-// TODO Add contact info 
+Feel free to provide pull request with improvements. You may contact us via *info@noves.io*.

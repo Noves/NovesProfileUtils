@@ -1,19 +1,34 @@
 package io.noves.profiles.util;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * This is a test class with Unit tests for the class {@link FshToDemisConversion}. The package of this
- * class has the exact same name to have access to the "protected" methods.
- */
 class FshToDemisConversionTest {
 
-  private static FshToDemisConversion sut = new FshToDemisConversion();
+  @TempDir
+  private File targetDir;
+
+  private static final Path sourceDir = Paths.get("./src/test/resources/ExampleFishProject/fsh");
 
   @Test
-  void testGetNumberIsOne() {
-    System.out.println();
+  void testExampleProjectDefaultResponse() throws IOException {
+    new FshToDemisConversion().convert(sourceDir, targetDir.toPath());
+    assertEquals(countFiles(sourceDir), countFiles(targetDir.toPath()), "Number of files should be identical");
   }
+
+  private long countFiles(Path path) throws IOException {
+    try (Stream<Path> walk = Files.walk(path)) {
+      return walk.filter(e -> e.toFile().isFile()).count();
+    }
+  }
+
 }

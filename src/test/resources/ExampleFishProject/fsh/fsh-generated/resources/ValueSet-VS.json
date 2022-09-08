@@ -1,0 +1,11 @@
+{
+  "resourceType": "ValueSet",
+  "status": "active",
+  "name": "VS",
+  "id": "VS",
+  "version": "0.1.0",
+  "url": "https://noves.io/fhir/ValueSet/VS",
+  "compose": {
+    "include": []
+  }
+}
