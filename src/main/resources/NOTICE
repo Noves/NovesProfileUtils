@@ -12,21 +12,42 @@ specific language governing permissions and limitations
 under the License.
 
 This project includes:
-  Byte Buddy (without dependencies) under Apache License, Version 2.0
-  Byte Buddy agent under Apache License, Version 2.0
+  Apache Commons Codec under Apache License, Version 2.0
+  Apache Commons IO under Apache License, Version 2.0
+  Apache Commons Lang under Apache License, Version 2.0
+  Apache Commons Text under Apache License, Version 2.0
+  Checker Qual under The MIT License
+  error-prone annotations under Apache 2.0
   FindBugs-jsr305 under The Apache Software License, Version 2.0
-  Java example project under Apache Software License 2.0
-  JMockit under The MIT License
+  Guava InternalFutureFailureAccess and InternalFutures under The Apache Software License, Version 2.0
+  Guava ListenableFuture only under The Apache Software License, Version 2.0
+  Guava: Google Core Libraries for Java under Apache License, Version 2.0
+  HAPI FHIR - Core Library under Apache Software License 2.0
+  HAPI FHIR Structures - FHIR R4 under Apache Software License 2.0
+  IntelliJ IDEA Annotations under The Apache Software License, Version 2.0
+  J2ObjC Annotations under The Apache Software License, Version 2.0
+  Jackson datatype: JSR310 under The Apache Software License, Version 2.0
+  Jackson-annotations under The Apache Software License, Version 2.0
+  Jackson-core under The Apache Software License, Version 2.0
+  jackson-databind under The Apache Software License, Version 2.0
+  JCL 1.2 implemented over SLF4J under Apache License, Version 2.0
   JUnit Jupiter API under Eclipse Public License v2.0
   JUnit Jupiter Engine under Eclipse Public License v2.0
   JUnit Platform Commons under Eclipse Public License v2.0
   JUnit Platform Engine API under Eclipse Public License v2.0
+  Kotlin Stdlib under The Apache License, Version 2.0
+  Kotlin Stdlib Common under The Apache License, Version 2.0
+  Kotlin Stdlib Jdk7 under The Apache License, Version 2.0
+  Kotlin Stdlib Jdk8 under The Apache License, Version 2.0
   Logback Classic Module under Eclipse Public License - v 1.0 or GNU Lesser General Public License
   Logback Core Module under Eclipse Public License - v 1.0 or GNU Lesser General Public License
-  mockito-core under The MIT License
-  Objenesis under Apache License, Version 2.0
+  okhttp under The Apache Software License, Version 2.0
+  okio under The Apache Software License, Version 2.0
   org.apiguardian:apiguardian-api under The Apache License, Version 2.0
+  org.hl7.fhir.r4 under Apache Software License 2.0
+  org.hl7.fhir.utilities under Apache Software License 2.0
   org.opentest4j:opentest4j under The Apache License, Version 2.0
-  Project Lombok under The MIT License
+  picocli under The Apache Software License, version 2.0
+  Profile Util under Apache Software License 2.0
   SLF4J API Module under MIT License
 
