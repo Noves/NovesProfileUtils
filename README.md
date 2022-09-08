@@ -4,7 +4,7 @@
 |-----------------------------------------|
 
 This project is only part of a proof of concept and not production ready! It is not tested thoroughly in any way and
-vital parts of functionality may be missing. Please use upon own responsibility.
+vital parts of functionality are missing. Please use upon own responsibility.
 
 ## Description
 
@@ -29,6 +29,10 @@ Then you can run the compiled Jar (that one ending on '-exe.jar'). You have to p
 ```
 java -jar ./target/profile-util-0.0.1-exe.jar --inputDirectory ./fsh --outputDirectory ./io.noves.example
 ```
+
+Attention!
+The content of the output directory will be always completely deleted. You have to follow currently specific naming
+patterns (e.g. ending on  "*Example.json" to recognize example files).
 
 ## Contribution & Contact
 
