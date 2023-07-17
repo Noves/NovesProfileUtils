@@ -65,6 +65,11 @@ public class FshToDemisConversion {
         log.info("Copy example files");
         copyResources(targetDirectory.resolve("ExampleResources"), e -> e.getFileName().toString().endsWith("Example.json"), resourceDir);
 
+        // Copy package.json.template file
+        var templateDir = pathFshProject.resolve("package.json.template");
+        validateExistence(templateDir, "Expecting a file with name package.json.template to exist in the root of the fsh-directory.");
+        copyResources(targetDirectory, e-> true, templateDir);
+
         log.info("Finished copying resources!");
     }
 
