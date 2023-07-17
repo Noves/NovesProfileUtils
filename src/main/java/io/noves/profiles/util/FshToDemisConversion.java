@@ -47,12 +47,12 @@ public class FshToDemisConversion {
 
         // Copy non StructureDefinition resources
         log.info("Copy terminology resources");
-        copyResources(meta.resolve("CodeSystem"), e -> e.getFileName().toString().startsWith("ValueSet"), resourceDir);
-        copyResources(meta.resolve("ValueSet"), e -> e.getFileName().toString().startsWith("CodeSystem"), resourceDir);
-        copyResources(meta.resolve("NamingSystem"), e -> e.getFileName().toString().startsWith("NamingSystem"), resourceDir);
+        copyResources(meta.resolve("CodeSystem"), e -> e.getFileName().toString().startsWith("ValueSet-"), resourceDir);
+        copyResources(meta.resolve("ValueSet"), e -> e.getFileName().toString().startsWith("CodeSystem-"), resourceDir);
+        copyResources(meta.resolve("NamingSystem"), e -> e.getFileName().toString().startsWith("NamingSystem-"), resourceDir);
 
         log.info("Copy Questionnaires");
-        copyResources(meta.resolve("Questionnaire"), e -> e.getFileName().toString().startsWith("Questionnaire"), resourceDir);
+        copyResources(meta.resolve("Questionnaire"), e -> e.getFileName().toString().startsWith("Questionnaire-"), resourceDir);
 
         // Copy StructureDefinition resources
         var sd = meta.resolve("StructureDefinition");
